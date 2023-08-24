@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: Enres API
+  version: 1.0.0
+servers:
+  - url: "{host}"
+    variables:
+      host:
+        default: 'https://stag-fe-api.enres.co/api/v1'
+tags:
+  - name: User
+paths:
+  /auth/login:
+    post:
+      description: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  landing_page:
+                    type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: object
+                    properties:
+                      message: 
+                        type: string
+                        example: "Email does not exist."  
+                      status_code:
+                        type: number
+                        example: "400"  

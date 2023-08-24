@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Dog API
+  version: 1.0.0
+servers:
+  - url: https://farmstall.designapis.com/v1
+paths:
+  /reviews:
+    get:
+      description: Get a bunch of reviews
+      parameters:
+        - name: maxRating
+          description: |
+            Filter the reviews
+            by the maximum rating
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: a bunch of reviews

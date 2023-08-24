@@ -1,0 +1,204 @@
+openapi: "3.0.0"
+info:
+  title: Shopping API
+  version: "1.0"
+tags:
+  - name: Product
+    description: description product
+  - name: User
+    description: description user
+components:
+  schemas:
+    Product:
+      type: object
+      description: A Product
+      required:
+        - reference
+        - name
+        - price
+        - supplier
+      properties:
+        reference:
+          description: |
+            unique ID identifying
+            a product
+          type: string
+        name:
+          type: string
+        price:
+          description: in USD
+          type: number
+        description:
+          type: string
+        supplier:
+          type: object
+          description: Product's supplier
+          required:
+            - reference
+            - name
+          properties:
+            reference:
+              type: string
+            name:
+              type: string
+    User:
+      type: object
+      description: A User
+      required:
+        - reference
+        - username
+      properties:
+        reference:
+          description: |
+            unique ID identifying
+            a user
+          type: string
+        username:
+          type: string
+  parameters:
+    ProductId:
+      name: productId
+      in: path
+      required: true
+      description: product's reference
+      schema:
+        type: string
+    UserId:
+      name: userId
+      in: path
+      required: true
+      description: user's reference
+      schema:
+        type: string
+paths:
+  /products:
+    description: The products catalog
+    get:
+      tags:
+        - Product
+      summary: Search products
+      description: |
+        Search products in catalog
+        using a free query parameter
+      parameters:
+        - name: free-query
+          description: |
+            A product's name, reference or
+            partial description
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Products matching free query
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of Product
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      tags:
+        - Product
+      summary: Add product
+      description: |
+        Add product's parameter to catalog
+      requestBody:
+        description: Product's information
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - price
+                - supplierReference
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                description:
+                  type: string
+                supplierReference:
+                  type: string
+      responses:
+        "200":
+          description: |
+            Product added to catalog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+  /products/{productId}:
+    parameters:
+      - $ref: "#/components/parameters/ProductId"
+    description: A product
+    delete:
+      tags:
+        - Product
+      summary: Delete a product
+      responses:
+        "200":
+          description: Product has been deleted
+  /users:
+    get:
+      tags:
+        - User
+      summary: Search users
+      description: |
+        Search users in catalog
+        using a free query parameter
+      parameters:
+        - name: free-query
+          description: |
+            A product's name, reference or
+            partial description
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Users matching free query
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of User
+                items:
+                  $ref: "#/components/schemas/User"
+    post:
+      tags:
+        - User
+      summary: Add user
+      description: |
+        Add user's parameter to catalog
+      requestBody:
+        description: User's information
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+      responses:
+        "200":
+          description: |
+            User added to catalog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /user/{userId}:
+    parameters:
+      - $ref: "#/components/parameters/UserId"
+    description: A user
+    delete:
+      tags:
+        - User
+      summary: Delete a user
+      responses:
+        "200":
+          description: user has been deleted
