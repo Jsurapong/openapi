@@ -1,9 +1,9 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Jobs = require('../service/JobsService');
+var Jobs = require('../service/JobsService.js');
 
-module.exports.createJob = function createJob (req, res, next, body) {
+module.exports.createJob = function createJob(req, res, next, body) {
   Jobs.createJob(body)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +13,7 @@ module.exports.createJob = function createJob (req, res, next, body) {
     });
 };
 
-module.exports.createJobApplication = function createJobApplication (req, res, next, body, id) {
+module.exports.createJobApplication = function createJobApplication(req, res, next, body, id) {
   Jobs.createJobApplication(body, id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,7 +23,7 @@ module.exports.createJobApplication = function createJobApplication (req, res, n
     });
 };
 
-module.exports.deleteJobWithId = function deleteJobWithId (req, res, next, id) {
+module.exports.deleteJobWithId = function deleteJobWithId(req, res, next, id) {
   Jobs.deleteJobWithId(id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -33,7 +33,7 @@ module.exports.deleteJobWithId = function deleteJobWithId (req, res, next, id) {
     });
 };
 
-module.exports.listAllJobs = function listAllJobs (req, res, next) {
+module.exports.listAllJobs = function listAllJobs(req, res, next) {
   Jobs.listAllJobs()
     .then(function (response) {
       utils.writeJson(res, response);
@@ -43,7 +43,7 @@ module.exports.listAllJobs = function listAllJobs (req, res, next) {
     });
 };
 
-module.exports.modifyJobApplicationWithId = function modifyJobApplicationWithId (req, res, next, body, id) {
+module.exports.modifyJobApplicationWithId = function modifyJobApplicationWithId(req, res, next, body, id) {
   Jobs.modifyJobApplicationWithId(body, id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -53,7 +53,7 @@ module.exports.modifyJobApplicationWithId = function modifyJobApplicationWithId 
     });
 };
 
-module.exports.modifyJobWithId = function modifyJobWithId (req, res, next, body, id) {
+module.exports.modifyJobWithId = function modifyJobWithId(req, res, next, body, id) {
   Jobs.modifyJobWithId(body, id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -63,7 +63,7 @@ module.exports.modifyJobWithId = function modifyJobWithId (req, res, next, body,
     });
 };
 
-module.exports.viewApplicationsForJob = function viewApplicationsForJob (req, res, next, id) {
+module.exports.viewApplicationsForJob = function viewApplicationsForJob(req, res, next, id) {
   Jobs.viewApplicationsForJob(id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -73,7 +73,7 @@ module.exports.viewApplicationsForJob = function viewApplicationsForJob (req, re
     });
 };
 
-module.exports.viewJobWithId = function viewJobWithId (req, res, next, id) {
+module.exports.viewJobWithId = function viewJobWithId(req, res, next, id) {
   Jobs.viewJobWithId(id)
     .then(function (response) {
       utils.writeJson(res, response);
