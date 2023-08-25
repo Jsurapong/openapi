@@ -127,6 +127,63 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Job'
+  /users/{id}/job-applications:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: List Applications For User
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                two-items:
+                  summary: Two Job Applications
+                  value:
+                    items:
+                      - id: 123
+                        user_id: 123
+                        job_id: 123
+                        status: PENDING
+                      - id: 123
+                        user_id: 123
+                        job_id: 123
+                        status: COMPLETE
+                empty:
+                  summary: Zero Job Applications
+                  value:
+                    items: []
+                many:
+                  summary: A lot of Job Applications
+                  value:
+                    items: 
+                    - id: 0
+                      user_id: 358
+                      job_id: 4012
+                      status: COMPLETE
+                    - id: 1
+                      user_id: 3089
+                      job_id: 3902
+                      status: PENDING
+                    - id: 2
+                      user_id: 4040
+                      job_id: 5269
+                      status: PENDING
+                    - id: 3
+                      user_id: 5636
+                      job_id: 8420
+                      status: PENDING
+        '404':
+          description: Not Found
+          
+            
   /jobs:
     post:
       summary: Create Job
@@ -156,6 +213,41 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Job'
+              examples:
+                with-some-data:
+                  summary: With some data
+                  value:
+                    items:
+                    - id: 123
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Fido
+                        age: 3
+                        breed: Doberman
+                        size: medium
+                      activity: walk
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-03T00:00:00Z
+                      dog:
+                        name: Rex
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: sit
+                    - id: 234
+                      creator_user_id: 345
+                      start_time: 2020-06-01T00:00:00Z
+                      end_time: 2020-06-02T00:00:00Z
+                      dog:
+                        name: Blossom
+                        age: 2
+                        breed: Rottweiler
+                        size: large
+                      activity: walk
   /jobs/{id}:
     parameters:
       - schema:
