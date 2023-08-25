@@ -11,6 +11,10 @@
     - frontend code clean
     - almost no code changes whten it comes time to switch to the real backend.
     - trade-offs can't write logic in our mock server
+
+#### **This chapter introduces ```Set up a mock API server.```**
+
+
 ```bash
 npm install --global @stoplight/prism-cli
 prism mock -p 8080 ./ch12/openapi.yaml
