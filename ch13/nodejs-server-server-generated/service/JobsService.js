@@ -184,6 +184,7 @@ exports.viewApplicationsForJob = function (id) {
  **/
 exports.viewJobWithId = async function (id) {
 
+
   const job = await JobModel.findById(id);
 
   return job.toResultFormat();
