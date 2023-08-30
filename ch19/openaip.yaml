@@ -328,56 +328,105 @@ paths:
 components:
   schemas:
     User:
+      required:
+        - email
+        - full_name
+        - roles
       type: object
       properties:
         id:
           type: string
+          readOnly: true
         email:
           type: string
+          format: email
         password:
           type: string
+          format: password
+          writeOnly: true
+          minLength: 8
         full_name:
           type: string
+          minLength: 2
+          maxLength: 50
         roles:
           type: array
+          minItems: 1
+          uniqueItems: true
           items:
             type: string
+            enum:
+              - PetOwner
+              - PetSitter
+              - Admin
     Job:
+      required:
+        - id
+        - creator_user_id
+        - start_time
+        - end_time
+        - pets
       type: object
       properties:
         id:
           type: string
+          readOnly: true
         creator_user_id:
           type: string
+          readOnly: true
         start_time:
           type: string
+          format: date-time
         end_time:
           type: string
+          format: date-time
         activity:
           type: string
+          minLength: 5
+          maxLength: 500
         pets:
           type: array
+          minItems: 1
+          maxItems: 10
           items:
             $ref: '#/components/schemas/Pet'
     JobApplication:
+      required:
+        - id
+        - status
+        - user_id
+        - job_id
       type: object
       properties:
         id:
           type: string
+          readOnly: true
         status:
           type: string
+          default: applying
+          enum:
+            - applying
+            - approved
+            - rejected
+            - canceled
         user_id:
           type: string
+          readOnly: true
         job_id:
           type: string
+          readOnly: true
     Pet: 
       allOf:
         - type: object
           properties:
             name:
               type: string
+              minLength: 2
+              maxLength: 20
             age:
               type: integer
+              minimum: 1
+              maximum: 100
         - oneOf:
           - $ref: '#/components/schemas/Cat'
           - $ref: '#/components/schemas/Dog' 
